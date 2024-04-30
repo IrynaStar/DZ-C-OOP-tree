@@ -1,0 +1,84 @@
+#include <iostream>
+#include <windows.h>
+#include <set>
+#include <string>
+using namespace std;
+
+class TV_izgotovitel
+{
+	string brand;
+	string country;
+
+public:
+	TV_izgotovitel(string brand, string country) {
+		SetBrand(brand);
+		SetCountry(country);
+	}
+
+	/*
+	void Print() const {
+		cout << "Описание телевизора: \n" << "Бренд: " << brand << "\n";
+		cout << "Страна: " << country << "\n\n\n";
+		
+	}
+	*/
+	void SetBrand(const string& brand) {
+		this->brand = brand;
+	}
+	string GetBrand() const {
+		return brand;
+	}
+	void SetCountry(const string& country) {
+		this->country = country;
+	}
+
+	string GetCountry() const {
+		return country;
+	}
+	
+	bool operator <(const TV_izgotovitel& newProd) const {
+		return brand < newProd.brand;
+	}
+};
+
+int main()
+{
+	setlocale(0, "");
+
+	set<TV_izgotovitel> producers;
+	TV_izgotovitel producer1("Xiomi", "China");
+	TV_izgotovitel producer2("Phillips", "Japane");
+	TV_izgotovitel producer3("LG", "South Koreya");
+	TV_izgotovitel producer4("Samsung", "Vietnam");
+	TV_izgotovitel producer5("Hisense", "China");
+	
+
+	
+	producers.insert(producer1);
+	producers.insert(producer2);
+	producers.insert(producer3);
+	producers.insert(producer4);
+	producers.insert(producer5);
+	
+
+	/*
+	producer1.Print();
+	producer2.Print();
+	producer3.Print();
+	producer4.Print();
+	producer5.Print();
+	*/
+
+	for (const TV_izgotovitel& i : producers)
+	{
+		cout << "Описание телевизора: \n" << "Бренд: " << i.GetBrand() << "\n";
+		cout << "Страна: " << i.GetCountry() << "\n\n\n";
+	}
+
+	if (producers.insert(TV_izgotovitel("Xiomi", "China")).second) {
+		cout << "Телевизор успешно добавлен\n";
+	}
+	else {
+		cout << "Такой телевизор уже существует\n\n\n";
+	}
+}
